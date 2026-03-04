@@ -1,6 +1,8 @@
 const express=require("express")
+const cors = require("cors");
 
 const app=express();
+app.use(cors());
 app.use(express.json());
 
 app.post("/webhook",async(req,res)=>{
@@ -12,11 +14,11 @@ try{
  }
  
   const charArray=data.split('').sort((a,b)=>a.localeCompare(b))
-  return res.status(200).json({word:charArray})
+  return res.status(200).json({success:true,word:charArray})
 }catch(err)
 {
   console.log(err)
-  return res.status(500).json({message:"internal server error"})
+  return res.status(500).json({success:false,message:"internal server error"})
 }
 })
 
